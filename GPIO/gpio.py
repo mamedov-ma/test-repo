@@ -109,7 +109,7 @@ GPIO.cleanup()
  
 
 
-#lightUp(5,10)
+lightUp(5,10)
 #blink(1,10,1)
 #runningLight(5,0.1)
 #runningDark(2,0.1)

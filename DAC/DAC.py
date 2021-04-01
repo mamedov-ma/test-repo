@@ -1,21 +1,22 @@
 import RPi.GPIO as GPIO
 import numpy as np
-import matplotlib.pyplot as plt
-from time import sleep
+#import matplotlib.pyplot as plt
+import time
 
-
-D = [24,25,8,7,12,16,20,21] 
+GPIO.cleanup()
+D = [10, 9, 11, 5, 6, 13, 19, 26] 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(D, GPIO.OUT)
 
 
-time = np.arange(0, 50, 0.05)
-amplitude = np.sin(time)
-plt.plot(time, amplitude)
-plt.title('Синус')
-plt.xlabel('Время')
-plt.ylabel('Амплитуда sin(time)')
-plt.show()
+
+#time = np.arange(0, 50, 0.05)
+#amplitude = np.sin(time)
+#plt.plot(time, amplitude)
+#plt.title('')
+#plt.xlabel('')
+#plt.ylabel(' sin(time)')
+#plt.show()
 
 
 def decToBinList(decNumber):
@@ -29,16 +30,30 @@ def decToBinList(decNumber):
     print (a)
     return a
 
- def dnum2dac(value):
-     A = decToBinList(number)
+
+
+def dnum2dac(number):
+    A = decToBinList(number)
     
     for i in range (0,8):
         if A[i] == 1:
-        GPIO.output(D[7 - i],1)
+            GPIO.output(D[7 - i],1)
     
     #GPIO.output(D,0)
 
 
 def repdac(repetitionnumber):
-    for i in range (0,255)
-        dnum2dac(i)
+    
+    for j in range (0, repetitionnumber):    
+        repetitionnumber = repetitionnumber + 1
+        for i in range (0,255):
+            dnum2dac(i)
+            time.sleep(0.2)
+            GPIO.output(D,0)
+
+
+#dnum2dac(255)
+repdac(1)
+
+
+
