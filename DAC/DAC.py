@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+import math
 
 GPIO.cleanup()
 D = [10, 9, 11, 5, 6, 13, 19, 26] 
@@ -25,13 +26,15 @@ def decToBinList(decNumber):
 
 
 def dnum2dac(number):
+    
+    GPIO.output(D,0)
     A = decToBinList(number)
     
     for i in range (0,8):
         if A[i] == 1:
             GPIO.output(D[7 - i],1)
 
-    time.sleep(10)
+    #time.sleep(0.1)
 
         
 
@@ -41,7 +44,6 @@ def dnum2dac(number):
 def repdac(repnumber):
     
     for j in range (0, repnumber):    
-        repnumber = repnumber + 1
         for i in range (0,255):
             dnum2dac(i)
             #time.sleep(1)
@@ -49,28 +51,51 @@ def repdac(repnumber):
 
 
     
-def sin():
+def sin(time_, samplingFrequence):
         
-        time = np.arange(0, 50, 0.05)
-        amplitude = np.sin(time)
-        plt.plot(time, amplitude)
-        plt.title('sin')
-        plt.xlabel('amlitude')
-        plt.ylabel(' sin(time)')
-        plt.show()
-
+    freq = 1 / samplingFrequence
     
+  
+    
+    for i in range(0, round(time_ * freq)):
+        x = round(abs(math.sin(i / freq)) * 255)
+        print(x)
+        dnum2dac(x)
+        time.sleep(samplingFrequence)
+    
+    
+    Time = np.arange(0, time_, samplingFrequence)
+    amplitude = np.sin(Time)
+    plt.plot(Time, amplitude)
+    plt.title('sin')
+    plt.xlabel('amlitude')
+    plt.ylabel(' sin(time)')
+    plt.show()
+        
+
     
    
 
 
 
 try:
-    repnumber = int(input())
+    #time = int(input())
+    #period = float(input())
+    #sin(time, period)
+    sin(10, 0.01)  
+   
+    #a = abs(math.sin(50))
+    #print(a)
+    # while 1:
+        #number = int(input())
+        #repnumber = int(input())
+        #time = int(input())
+        #period = int(input())
     
 
-    #dnum2dac(number)
-    repdac(repnumber)
+        #dnum2dac(number)
+        #repdac(repnumber)
+        #sin(time, period)
 
     
 
