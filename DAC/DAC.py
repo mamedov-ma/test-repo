@@ -38,9 +38,6 @@ def dnum2dac(number):
 
         
 
-    
-
-
 def repdac(repnumber):
     
     for j in range (0, repnumber):    
@@ -51,26 +48,24 @@ def repdac(repnumber):
 
 
     
-def sin(time_, samplingFrequence):
-        
-    freq = 1 / samplingFrequence
-    
-  
-    
-    for i in range(0, round(time_ * freq)):
-        x = round(abs(math.sin(i / freq)) * 255)
+def sin(time_, samplingFrequence, frequence):  
+   
+    for i in range(0, round(time_ / samplingFrequence)):
+        x = round(abs(math.sin((i * frequence * 2 * math.pi) * samplingFrequence)) * 255)
         print(x)
-        dnum2dac(x)
+        #dnum2dac(x)
         time.sleep(samplingFrequence)
     
     
     Time = np.arange(0, time_, samplingFrequence)
-    amplitude = np.sin(Time)
+    amplitude = np.sin(Time * 2 * math.pi * frequence)
     plt.plot(Time, amplitude)
     plt.title('sin')
-    plt.xlabel('amlitude')
-    plt.ylabel(' sin(time)')
+    plt.xlabel('time')
+    plt.ylabel('sin(time)')
+    plt.minorticks_on()
     plt.show()
+        
         
 
     
@@ -82,7 +77,7 @@ try:
     #time = int(input())
     #period = float(input())
     #sin(time, period)
-    sin(10, 0.01)  
+    sin(10, 0.01, 10)  
    
     #a = abs(math.sin(50))
     #print(a)
