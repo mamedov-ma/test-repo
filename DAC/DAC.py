@@ -50,12 +50,13 @@ def repdac(repnumber):
     
 def sin(time_, samplingFrequence, frequence):  
    
+    
+   
     for i in range(0, round(time_ / samplingFrequence)):
         x = round(abs(math.sin((i * frequence * 2 * math.pi) * samplingFrequence)) * 255)
         print(x)
-        #dnum2dac(x)
+        dnum2dac(x)
         time.sleep(samplingFrequence)
-    
     
     Time = np.arange(0, time_, samplingFrequence)
     amplitude = np.sin(Time * 2 * math.pi * frequence)
@@ -65,6 +66,15 @@ def sin(time_, samplingFrequence, frequence):
     plt.ylabel('sin(time)')
     plt.minorticks_on()
     plt.show()
+   
+    ar = Time
+   
+    for values in ar:
+        dnum2dac(values)
+        
+    
+    
+   
         
         
 
