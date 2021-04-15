@@ -12,8 +12,6 @@ GPIO.setup(4, GPIO.IN )
 GPIO.setup(17, GPIO.OUT)
 GPIO.output(17,1)
 GPIO.output(D,0)
-
-
 def decToBinList(decNumber):
     b = 1
     a = [0,0,0,0,0,0,0,0]
@@ -22,7 +20,7 @@ def decToBinList(decNumber):
         if (b & (decNumber >> i) == 1):
             a[7 - i] = 1
       
-    #print (a)
+    print (a)
     return a
 
 
@@ -36,23 +34,30 @@ def dnum2dac(number):
         if A[i] == 1:
             GPIO.output(D[7 - i],1)
 
+print("Enter value (-1 to exit) >")
 
-
-
-def finder():
-    
-    for i in range(0,256):
-         
-        dnum2dac(i)
-        time.sleep(0.005)
-        if(GPIO.input(4) == 0):
-            #print(i / 256 * 3.3, "V")
+try:
+    while 1:
+        a = int(input())
+        if (a < 0):
+            print("exit")
             break
-    print("Digital value:", i, ", Analog value:", i / 256 * 3.3, "V")
-           
-        
-while True:
-    finder() 
-    
+        if (a > 255):
+            print("exit")
+            break    
+        dnum2dac(a)
+        print(a, " = ",a / 256 * 3.3, "V")
 
 
+
+except ValueError:
+    print('WTF???')
+
+except Exception:
+    print(' U OKAY?')
+
+
+finally:
+    GPIO.output(D,0)
+    GPIO.cleanup()
+     
