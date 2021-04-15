@@ -41,21 +41,24 @@ def dnum2dac(number):
 
 def finder():
     a = 128
-    for i in range (0,8):
-        dnum2dac(i)
-        
-        time.sleep(0.005)
+    for i in range (0,7):
+        #a = round(a)
+        dnum2dac(a)
+        time.sleep(0.001)
         if(GPIO.input(4) == 1):
-            a = a + a / (2 ** i)
+            a = a + 2 ** (6 - i)
+        else:
+            a = a - 2 ** (6 - i)
+        print(a)
+    if(a == 1):
+        a = a - 1
 
-        if(GPIO.input(4) == 0):
-            a = a - a / (2 ** i)
 
     
-    print("Digital value:", a, ", Analog value:", a / 256 * 3.3, "V")
+    print("Digital value:", a, ", Analog value:", a / 255 * 3.3, "V")
            
         
-while True:
-    finder() 
+#while True:
+finder() 
     
 

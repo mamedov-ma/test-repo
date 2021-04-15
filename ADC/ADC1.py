@@ -44,7 +44,7 @@ def finder():
     for i in range(0,256):
          
         dnum2dac(i)
-        time.sleep(0.005)
+        time.sleep(0.00001)
         if(GPIO.input(4) == 0):
             #print(i / 256 * 3.3, "V")
             break
