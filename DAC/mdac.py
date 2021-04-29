@@ -20,7 +20,7 @@ def decToBinList(decNumber):
         if (b & (decNumber >> i) == 1):
             a[7 - i] = 1
       
-    print (a)
+    #print (a)
     return a
 
 
@@ -52,7 +52,7 @@ def sin(time_, samplingFrequence, frequence):
     samplingFrequence = 1 / samplingFrequence
     for i in range(0, round(time_ / samplingFrequence)):
         x = round(abs(math.sin((i * frequence * 2 * math.pi) * samplingFrequence)) * 255)
-        print(x)
+        #print(x)
         dnum2dac(x)
         time.sleep(samplingFrequence)
     
